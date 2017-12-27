@@ -9,15 +9,23 @@
     msg: "Unable to find a `composer.json` file in the root of '{{ deploy_helper.new_release_path }}'. Make sure your repo has a `composer.json` file in its root or edit `repo_subtree_path` for '{{ site }}' in `wordpress_sites.yml` so it points to the directory with a `composer.json` file."
   when: not composer_json.stat.exists
 
-- name: Setup packagist.com authentication
+- name: Install Composer dependencies
   composer:
-    command: config
-    arguments: --auth http-basic.repo.packagist.com token {{ project.packagist_token }}
+    no_scripts: yes
+
     working_dir: "{{ deploy_helper.new_release_path }}"
-  no_log: true
-  when: project.packagist_token is defined
 
 - name: Install Composer dependencies
   composer:
     no_scripts: yes
+    optimize_autoloader: yes
     working_dir: "{{ deploy_helper.new_release_path }}"
+
+- name: Install Composer dependencies
+  composer:
+    no_scripts: yes
+    optimize_autoloader: yes
+    working_dir: "{{ deploy_helper.new_release_path }}"
+
+- name: Generate Laravel App Key
+  command: php {{ deploy_helper.new_release_path }}/artisan key:generate
