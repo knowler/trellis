@@ -1,0 +1,38 @@
+---
+- import_tasks: directories.yml
+  tags: wordpress-install-directories
+
+- name: Create .env file
+  template:
+    src: "env.j2"
+    dest: "/tmp/{{ item.key }}.env"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+  with_dict: "{{ wordpress_sites }}"
+
+- name: Copy .env file into web root
+  command: rsync -ac --info=NAME /tmp/{{ item.key }}.env {{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/.env
+  with_dict: "{{ wordpress_sites }}"
+  register: env_file
+  changed_when: env_file.stdout == item.key + '.env'
+
+- name: Add known_hosts
+  known_hosts:
+    name: "{{ item.name }}"
+    key: "{{ item.key | default(omit) }}"
+    path: "{{ item.path | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  become: no
+  with_items: "{{ known_hosts | default([]) }}"
+
+- name: Install Dependencies with Composer
+  composer:
+    no_dev: no
+    optimize_autoloader: yes
+    working_dir: "{{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/"
+  become: no
+  with_dict: "{{ wordpress_sites }}"
+
+- name: Generate Laravel App Key
+  command: php {{ www_root }}/{{ item.key }}/{{ item.value.current_path | default('current') }}/artisan key:generate
+  with_dict: "{{ wordpress_sites }}"
