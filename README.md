@@ -1,20 +1,19 @@
-# Trellis
+# Trellis for Rails
 [![Release](https://img.shields.io/github/release/roots/trellis.svg?style=flat-square)](https://github.com/roots/trellis/releases)
 [![Build Status](https://img.shields.io/travis/roots/trellis.svg?style=flat-square)](https://travis-ci.org/roots/trellis)
 
-Ansible playbooks for setting up a LEMP stack for WordPress.
+Ansible playbooks for setting up a LEMP stack for Rails.
 
 - Local development environment with Vagrant
 - High-performance production servers
-- One-command deploys for your [Bedrock](https://roots.io/bedrock/)-based WordPress sites
 
 ## What's included
 
 Trellis will configure a server with the following and more:
 
-* Ubuntu 16.04 Xenial LTS
+* Ubuntu 18.04 Xenial LTS
 * Nginx (with optional FastCGI micro-caching)
-* PHP 7.2
+* Ruby 2.5
 * MariaDB (a drop-in MySQL replacement)
 * SSL support (scores an A+ on the [Qualys SSL Labs Test](https://www.ssllabs.com/ssltest/))
 * Let's Encrypt integration for free SSL certificates
@@ -45,17 +44,11 @@ The recommended directory structure for a Trellis project looks like:
 ```shell
 example.com/      # → Root folder for the project
 ├── trellis/      # → Your clone of this repository
-└── site/         # → A Bedrock-based WordPress site
-    └── web/
-        ├── app/  # → WordPress content directory (themes, plugins, etc.)
-        └── wp/   # → WordPress core (don't touch!)
+└── rails/        # → Your Rails app
 ```
-
-See a complete working example in the [roots-example-project.com repo](https://github.com/roots/roots-example-project.com).
 
 1. Create a new project directory: `$ mkdir example.com && cd example.com`
 2. Clone Trellis: `$ git clone --depth=1 git@github.com:roots/trellis.git && rm -rf trellis/.git`
-3. Clone Bedrock: `$ git clone --depth=1 git@github.com:roots/bedrock.git site && rm -rf site/.git`
 
 Windows user? [Read the Windows docs](https://roots.io/trellis/docs/windows/) for slightly different installation instructions. VirtualBox is known to have poor performance in Windows — use VMware or [see some possible solutions](https://discourse.roots.io/t/virtualbox-performance-in-windows/3932).
 
@@ -92,12 +85,6 @@ A base Ubuntu 16.04 server is required for setting up remote servers. OS X users
 ## Contributing
 
 Contributions are welcome from everyone. We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
-
-## Trellis sponsors
-
-Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
-
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"></a> <a href="https://www.harnessup.com/"><img src="https://cdn.roots.io/app/uploads/harness-software.svg" alt="Harness Software" width="200" height="150"></a> <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"></a>
 
 ## Community
 
