@@ -44,9 +44,9 @@ project_shared_children:
 # The project_environment is a list of environment variables that can be used in hooks
 # Example:
 # project_environment:
-#   WP_ENV: "production"
+#   APP_ENV: "production"
 project_environment:
-  WP_ENV: "{{ env }}"
+  APP_ENV: "{{ env }}"
 
 # The project_current_path is the symlink used for the latest or active deployment
 # - default is 'current'
