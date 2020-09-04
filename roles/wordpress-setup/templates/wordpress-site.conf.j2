@@ -116,15 +116,8 @@ server {
   {% endblock -%}
 
   {% block location_uploads_php -%}
-  # Prevent PHP scripts from being executed inside the uploads folder.
-  location ~* /app/uploads/.*\.php$ {
-    deny all;
-  }
-  {% endblock %}
-
-  {% block blade_twig_templates -%}
-  # Prevent Blade and Twig templates from being accessed directly.
-  location ~* \.(blade\.php|twig)$ {
+  # Prevent PHP scripts from being executed inside the storage folder.
+  location ~* /storage/.*\.php$ {
     deny all;
   }
   {% endblock %}

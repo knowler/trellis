@@ -32,8 +32,14 @@ project_templates:
 #     mode: '0755'        // <- optional, must be quoted, defaults to `'0755'` if `directory` or `'0644'` if `file`
 #     type: directory     // <- optional, defaults to `directory`, options: `directory` or `file`
 project_shared_children:
-  - path: web/app/uploads
-    src: uploads
+  - path: storage
+    src: storage
+  - path: public/storage
+    src: public/storage
+  - path: content
+    src: content
+  - path: users
+    src: users
 
 # The project_environment is a list of environment variables that can be used in hooks
 # Example:
